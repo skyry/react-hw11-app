@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 interface SuccessModalProps {
   isOpen: boolean;
@@ -13,10 +13,38 @@ const SuccessModal: React.FC<SuccessModalProps> = ({
   title = "Успіх!", 
   message = "Ваша форма успішно відправлена." 
 }) => {
+
+  // Add 09.08.25 - Валідація після закриття модального вікна по еscape
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
+  // Add 09.08.25 - Валідація після закриття модального вікна по кліку на фон
+  const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (event.target === event.currentTarget) {
+      onClose();
+    }
+  };
+
   return (
-    <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+    <div 
+      className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50"
+      onClick={handleBackdropClick}
+    >
       <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
         <div className="mt-3 text-center">
           <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">

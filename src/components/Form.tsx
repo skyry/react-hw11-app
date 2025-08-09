@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import {Formik, Form as FormikForm} from 'formik';
+import React, { useState, useRef } from 'react';
+import {Formik, Form as FormikForm, FormikProps} from 'formik';
 import FormField from './FormField';
 import SubmitButton from './SubmitButton';
 import ValidationProgress from './ValidationProgress';
@@ -10,6 +10,7 @@ import {FormData, initialValues} from './types';
 
 const Form: React.FC = () => {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const formikRef = useRef<FormikProps<FormData>>(null);
 
   const handleSubmit = (values: FormData, {setSubmitting, resetForm}: any) => {
     console.log('Form data:', values);
@@ -22,6 +23,13 @@ const Form: React.FC = () => {
 
   const handleCloseModal = () => {
     setShowSuccessModal(false);
+
+    // Add 09.08.25 - Валідація після закриття модального вікна. 
+    if (formikRef.current) {
+      setTimeout(() => {
+        formikRef.current?.validateForm();
+      }, 100);
+    }
   };
 
   return (
@@ -34,6 +42,7 @@ const Form: React.FC = () => {
             </div>
             <div className="px-6 py-8">
               <Formik
+                innerRef={formikRef}
                 initialValues={initialValues}
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
@@ -41,7 +50,7 @@ const Form: React.FC = () => {
                 validateOnChange={true}
                 validateOnBlur={true}
               >
-                {({ isSubmitting, errors, touched, isValid, values }) => {
+                {({ isSubmitting, errors, touched, isValid, values, validateForm }) => {
                   const fieldNames = ['name', 'email', 'password', 'city', 'birthDate', 'phone'];
                   const validFields = fieldNames.filter(field => {
                     const hasValue = values[field] && values[field].toString().trim() !== '';
