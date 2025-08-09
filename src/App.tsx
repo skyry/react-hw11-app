@@ -11,7 +11,7 @@ const App: React.FC = () => {
             <div className="flex justify-between h-16">
               <div className="flex items-center">
                 <Link className="text-white text-xl font-bold hover:text-gray-300 transition-colors" to="/">
-                  React with Tailwind Form App 
+                  React Form with Tailwind CSS App
                 </Link>
               </div>
             </div>
