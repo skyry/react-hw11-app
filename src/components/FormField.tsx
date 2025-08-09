@@ -22,7 +22,6 @@ const FormField: React.FC<FormFieldProps> = ({
   placeholder,
   helpText,
   errors,
-  touched,
   values,
   required = false,
   autoComplete = 'off',
@@ -39,6 +38,8 @@ const FormField: React.FC<FormFieldProps> = ({
       case 'email': return 'email';
       case 'phone': return 'phone';
       case 'birthDate': return 'calendar';
+      case 'city': return 'city';
+      case 'password': return 'password';
       default: return null;
     }
   };

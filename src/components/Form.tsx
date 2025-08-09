@@ -56,7 +56,7 @@ const Form: React.FC = () => {
                       name="name"
                       label="Ім'я"
                       type="text"
-                      placeholder="Введіть ваше ім'я"
+                      placeholder="Введіть ім'я"
                       errors={errors}
                       touched={touched}
                       values={values}
@@ -67,7 +67,7 @@ const Form: React.FC = () => {
                       name="email"
                       label="Електронна пошта"
                       type="email"
-                      placeholder="example@gmail.com"
+                      placeholder="Введіть електронну пошту"
                       errors={errors}
                       touched={touched}
                       values={values}
@@ -79,7 +79,7 @@ const Form: React.FC = () => {
                       label="Пароль"
                       type="password"
                       placeholder="Введіть пароль"
-                      helpText="Пароль повинен містити принаймні 8 символів, включаючи велику та малу літери та цифру"
+                      helpText="Пароль повинен містити принаймні 8 символів, включаючи велику та малу літери (латинську або кирилицю) та цифру"
                       errors={errors}
                       touched={touched}
                       values={values}
@@ -90,7 +90,7 @@ const Form: React.FC = () => {
                       name="city"
                       label="Місто"
                       type="text"
-                      placeholder="Введіть ваше місто"
+                      placeholder="Введіть місто"
                       errors={errors}
                       touched={touched}
                       values={values}
